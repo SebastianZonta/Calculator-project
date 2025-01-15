@@ -56,25 +56,9 @@ body {
     letter-spacing: 2px;
 }
 
-/* .displayer span::after {
-    content: '';
-    position: absolute;
-    top: 50px;
-    left: 510px;
-    font-size: 1rem;
-} */
 .first-number {
     color: white;
 }
-
-/* .displayer span::after {
-    content: 'after';
-    position: relative;
-    top: 50px;
-    left: 510px;
-    font-size: 1rem;
-} */
-
 
 .buttons-container {
     flex-grow: 1.5;

@@ -41,6 +41,11 @@ document.querySelector(".button.button-equals").addEventListener("click", event 
 });
 
 function addEqualsButtonEvent() {
+    if (calculator.operation === "/" && displayerSpan.textContent == "0") {
+        alert("nop");
+        displayerSpan.textContent = '';
+        return;
+    }
     calculator.secondNumber = displayerSpan.textContent;
     displayerSpan.textContent = Math.round((operate() + Number.EPSILON) * 100) / 100;
     firstNumberSpan.textContent = '';
