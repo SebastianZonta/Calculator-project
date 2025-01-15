@@ -46,21 +46,35 @@ body {
     align-items: flex-end;
     padding-right: 1.2rem;
     height: 2rem;
+    flex-direction: column-reverse;
 }
 
-.displayer span {
+.displayer {
     color: white;
     font-size: 2rem;
     font-weight: bold;
     letter-spacing: 2px;
 }
 
-/* .first-number{
+/* .displayer span::after {
+    content: '';
     position: absolute;
     top: 50px;
-    z-index: 10;
-    color: white;
+    left: 510px;
+    font-size: 1rem;
 } */
+.first-number {
+    color: white;
+}
+
+/* .displayer span::after {
+    content: 'after';
+    position: relative;
+    top: 50px;
+    left: 510px;
+    font-size: 1rem;
+} */
+
 
 .buttons-container {
     flex-grow: 1.5;

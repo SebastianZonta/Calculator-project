@@ -1,12 +1,25 @@
 let numbersButton = document.querySelectorAll(".button.button-number");
-let displayerSpan = document.querySelector(".displayer span");
+let commaButton = document.querySelector(".button.button-comma");
+let displayerSpan = document.querySelector(".displayer");
+let firstNumberSpan = document.querySelector(".first-number");
+
 const maxDisplayerNumbers = 10;
-let calculator = {};
+
+let calculator = {
+    numbersDisplayed: 0,
+    firstNumber: 0,
+    secondNumber: 0,
+    operation: ''
+};
 
 numbersButton.forEach(button => {
     button.addEventListener("click", _ => {
         addNumericButtonEvent(button);
     });
+});
+
+commaButton.addEventListener("click", event => {
+    addNumericButtonEvent(commaButton);
 });
 
 document.querySelector(".button.button-delete").addEventListener("click", _ => {
@@ -17,6 +30,29 @@ document.querySelector(".button.button-reset").addEventListener("click", _ => {
     addResetButtonEvent();
 });
 
+document.querySelectorAll(".button.button-operation").forEach(operation => {
+    operation.addEventListener("click", event => {
+        addOperationButtonEvent(operation);
+    });
+});
+
+document.querySelector(".button.button-equals").addEventListener("click", event => {
+    addEqualsButtonEvent();
+});
+
+function addEqualsButtonEvent() {
+    calculator.secondNumber = displayerSpan.textContent;
+    displayerSpan.textContent = Math.round((operate() + Number.EPSILON) * 100) / 100;
+    firstNumberSpan.textContent = '';
+}
+
+function addOperationButtonEvent(operation) {
+    firstNumberSpan.textContent = displayerSpan.textContent;
+    displayerSpan.textContent = '';
+    calculator.operation = operation.querySelector("button").textContent;
+    calculator.numbersDisplayed = 0;
+    calculator.firstNumber = firstNumberSpan.textContent;
+}
 
 function addNumericButtonEvent(button) {
     if (calculator.numbersDisplayed === maxDisplayerNumbers)
@@ -24,8 +60,6 @@ function addNumericButtonEvent(button) {
 
     let buttonElement = button.querySelector("button");
     displayerSpan.textContent = `${displayerSpan.textContent}${buttonElement.textContent}`;
-    if (!calculator.numbersDisplayed)
-        calculator.numbersDisplayed = 0;
 
     calculator.numbersDisplayed++;
 }
@@ -36,10 +70,22 @@ function addDeleteButtonEvent() {
         return;
 
     displayerSpan.textContent = displayerContent.slice(0, length - 1);
+    calculator.numbersDisplayed--;
 }
 
 function addResetButtonEvent() {
     displayerSpan.textContent = '';
-    if (calculator.numbersDisplayed)
-        calculator.numbersDisplayed = 0;
+    calculator.numbersDisplayed = 0;
+    firstNumberSpan.textContent = '';
+}
+
+function emptyCalculatorObject() {
+    calculator.firstNumber = 0;
+    calculator.numbersDisplayed = 0;
+    calculator.secondNumber = 0;
+    calculator.operation = '';
+}
+
+function operate() {
+    return new Function(`return ${calculator.firstNumber} ${calculator.operation} ${calculator.secondNumber}`)();
 }
