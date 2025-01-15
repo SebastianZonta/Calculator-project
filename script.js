@@ -84,13 +84,6 @@ function addResetButtonEvent() {
     firstNumberSpan.textContent = '';
 }
 
-function emptyCalculatorObject() {
-    calculator.firstNumber = 0;
-    calculator.numbersDisplayed = 0;
-    calculator.secondNumber = 0;
-    calculator.operation = '';
-}
-
 function operate() {
     return new Function(`return ${calculator.firstNumber} ${calculator.operation} ${calculator.secondNumber}`)();
 }
